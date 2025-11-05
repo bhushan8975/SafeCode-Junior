@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeCode Junior - Login</title>
+
+  <!-- === Styles === -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      width: 350px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1.2s ease;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #00ffcc;
+    }
+
+    p {
+      margin-bottom: 25px;
+      color: #ccc;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 8px #00ffcc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #00ff87, #60efff);
+      color: #0f2027;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px #00ffcc;
+    }
+
+    #voiceLoginBtn {
+      background: linear-gradient(90deg, #ff00c8, #ff9a9e);
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+  <!-- === JS Modules === -->
+  <script type="module" src="../js/login.js" defer></script>
+</head>
+
+<body>
+  <div class="login-container">
+    <h1>🔐 SafeCode Junior</h1>
+    <p>Secure your future with Cybersecurity</p>
+
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+
+    <button id="login-btn">Login</button>
+    <button id="signup-btn">Sign Up</button>
+
+    <p>or use biometric 👇</p>
+    <button id="voiceLoginBtn">🎤 Login with Voice</button>
+    <p id="voiceLoginStatus" style="color:#00ffcc; font-size:14px;"></p>
+  </div>
+</body>
+</html>

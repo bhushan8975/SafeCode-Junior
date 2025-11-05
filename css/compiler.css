@@ -1,0 +1,67 @@
+/* Compiler Page */
+.compiler-section {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.compiler-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 15px 20px;
+  border-radius: 15px;
+  color: white;
+}
+
+.compiler-controls select {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+#run-btn {
+  background: linear-gradient(135deg, #00b4d8, #0077b6);
+  border: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#run-btn:hover {
+  background: linear-gradient(135deg, #0077b6, #023e8a);
+}
+
+.editor-container textarea {
+  width: 100%;
+  height: 350px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #00e1ff;
+  font-family: "Fira Code", monospace;
+  font-size: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+.output-container {
+  background: rgba(0, 0, 0, 0.4);
+  color: #e8faff;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.output-container pre {
+  white-space: pre-wrap;
+  font-family: "Fira Code", monospace;
+  font-size: 14px;
+}

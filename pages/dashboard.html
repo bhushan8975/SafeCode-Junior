@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeCode Junior | Dashboard</title>
+
+  <!-- 🌟 App Logo + Favicon -->
+  <link rel="icon" type="image/png" href="../assets/icons/logo.png" />
+
+  <!-- 🌀 Animated Tab Title -->
+  <script>
+    const titles = ["💻 SafeCode Junior", "🛡️ Secure Your Future", "🚀 Learn Cybersecurity"];
+    let i = 0;
+    setInterval(() => {
+      document.title = titles[i];
+      i = (i + 1) % titles.length;
+    }, 3000);
+  </script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <script src="https://kit.fontawesome.com/a81368914c.js" crossorigin="anonymous"></script>
+
+  <!-- ✅ Firebase + Voice Biometric Integration -->
+  <script type="module">
+    import { auth } from "../js/firebaseConfig.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { verifyVoice } from "../js/voiceBiometric.js";
+
+    // === Auth Guard ===
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        console.warn("🚫 No user session — redirecting to login...");
+        window.location.href = "login.html";
+      } else {
+        console.log("✅ Logged in as:", user.email);
+        document.getElementById("welcome-text").textContent =
+          `Welcome 👋 ${user.email.split('@')[0]}`;
+      }
+    });
+
+    // === Initialize After DOM Loads ===
+    window.addEventListener("DOMContentLoaded", () => {
+      const logoutBtn = document.getElementById("logout-btn");
+
+      // 🎙️ Voice Verification Button
+      const voiceBtn = document.createElement("button");
+      voiceBtn.id = "verify-voice-btn";
+      voiceBtn.innerHTML = "🎙️ Verify My Voice";
+      voiceBtn.style = `
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 10px;
+        box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+        transition: all 0.3s ease;
+      `;
+
+      const statusText = document.createElement("p");
+      statusText.style = "color:#00ffcc; font-size:14px; margin-top:8px;";
+
+      const userInfo = document.querySelector(".user-info div");
+      if (userInfo) {
+        userInfo.appendChild(voiceBtn);
+        userInfo.appendChild(statusText);
+      }
+
+      // 🎤 Handle Voice Verification
+      voiceBtn.addEventListener("click", async () => {
+        const user = auth.currentUser;
+        if (!user) {
+          statusText.innerText = "⚠️ Please login again.";
+          return;
+        }
+
+        try {
+          voiceBtn.disabled = true;
+          voiceBtn.innerText = "🎧 Listening...";
+          statusText.innerText = "🎙️ Please speak now...";
+          const match = await verifyVoice(user.uid);
+
+          if (match) {
+            statusText.innerText = "✅ Voice Verified Successfully!";
+          } else {
+            statusText.innerText = "❌ Voice did not match. Try again.";
+          }
+        } catch (error) {
+          console.error("Voice verification failed:", error);
+          statusText.innerText = "❌ Voice verification failed.";
+        } finally {
+          voiceBtn.disabled = false;
+          voiceBtn.innerText = "🎙️ Verify My Voice";
+        }
+      });
+
+      // 🔒 Logout Function
+      logoutBtn.addEventListener("click", async () => {
+        try {
+          await signOut(auth);
+          console.log("🔒 Signed out successfully");
+          window.location.href = "login.html";
+        } catch (err) {
+          console.error("❌ Logout failed:", err);
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar glassy">
+      <div class="brand">
+        <img src="../assets/icons/logo.png" alt="Logo" class="logo" />
+        <h2>SafeCode Junior</h2>
+      </div>
+      <nav class="nav-menu">
+        <a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="videos.html"><i class="fas fa-video"></i> Video Lectures</a>
+        <a href="compiler.html"><i class="fas fa-code"></i> Code Compiler</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+        <a href="#" id="logout-btn" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="user-info">
+          <img id="user-photo" src="../assets/default-avatar.png" alt="User Photo" />
+          <div>
+            <h1 id="welcome-text">Welcome 👋</h1>
+            <p>Learn, Practice, and Secure your future with <strong>SafeCode Junior</strong></p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Feature Cards -->
+      <section class="card-section">
+        <div class="card glassy gradient1" onclick="window.location.href='videos.html'">
+          <i class="fas fa-video"></i>
+          <h3>Video Lectures</h3>
+          <p>Learn Cybersecurity through interactive videos</p>
+        </div>
+
+        <div class="card glassy gradient2" onclick="window.location.href='compiler.html'">
+          <i class="fas fa-code"></i>
+          <h3>Code Compiler</h3>
+          <p>Practice coding in real-time securely</p>
+        </div>
+
+        <div class="card glassy gradient3" onclick="window.location.href='profile.html'">
+          <i class="fas fa-user-circle"></i>
+          <h3>Your Profile</h3>
+          <p>View and update your account details</p>
+        </div>
+
+        <div class="card glassy gradient4" onclick="window.location.href='newsfeed.html'">
+          <i class="fas fa-newspaper"></i>
+          <h3>Cyber News</h3>
+          <p>Stay updated with latest cybersecurity trends</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaderboard | SafeCode Junior</title>
+
+  <!-- 🌟 App Logo + Favicon -->
+<link rel="icon" type="image/png" href="../assets/icons/logo.png" />
+
+<!-- 🌀 Animated Tab Title -->
+<script>
+  const titles = ["💻 SafeCode Junior", "🛡️ Secure Your Future", "🚀 Learn Cybersecurity"];
+  let i = 0;
+  setInterval(() => {
+    document.title = titles[i];
+    i = (i + 1) % titles.length;
+  }, 3000);
+</script>
+
+  <!-- ✅ Firebase Auth Check -->
+  <script type="module">
+    import { auth, db } from "../js/firebaseConfig.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    // === 🧠 Auth Check (Prevents Instant Redirect) ===
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        console.warn("🚫 No user logged in. Redirecting...");
+        setTimeout(() => {
+          if (!auth.currentUser) {
+            window.location.href = "login.html";
+          }
+        }, 800);
+      } else {
+        console.log("✅ Logged in as:", user.email);
+        loadLeaderboard();
+      }
+    });
+
+    // === 🚪 Logout ===
+    window.logoutUser = async function () {
+      try {
+        await signOut(auth);
+        window.location.href = "login.html";
+      } catch (err) {
+        console.error("Logout failed:", err);
+      }
+    };
+
+    // === 🏆 Load Leaderboard Data ===
+    async function loadLeaderboard() {
+      const tableBody = document.getElementById("leaderboard-body");
+      if (!tableBody) return;
+
+      tableBody.innerHTML = "<tr><td colspan='4'>⏳ Loading leaderboard...</td></tr>";
+
+      try {
+        const q = query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(10));
+        const querySnapshot = await getDocs(q);
+
+        tableBody.innerHTML = "";
+        let rank = 1;
+
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const row = `
+            <tr>
+              <td>#${rank}</td>
+              <td>${data.name || "Anonymous"}</td>
+              <td>${data.email || "—"}</td>
+              <td>${data.score || 0}</td>
+            </tr>
+          `;
+          tableBody.insertAdjacentHTML("beforeend", row);
+          rank++;
+        });
+
+        if (rank === 1) {
+          tableBody.innerHTML = "<tr><td colspan='4'>No players yet 🕹️</td></tr>";
+        }
+      } catch (error) {
+        console.error("Leaderboard load error:", error);
+        tableBody.innerHTML = "<tr><td colspan='4'>⚠️ Failed to load leaderboard</td></tr>";
+      }
+    }
+  </script>
+
+  <!-- ✅ Styling -->
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 1.5em;
+      color: #00e5ff;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
+      display: block;
+      padding: 10px 15px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: rgba(0, 229, 255, 0.3);
+      color: #00e5ff;
+    }
+
+    .logout {
+      background: rgba(255, 75, 75, 0.2);
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .logout:hover {
+      background: rgba(255, 75, 75, 0.4);
+    }
+
+    /* Content */
+    .content {
+      flex: 1;
+      padding: 30px 40px;
+      overflow-y: auto;
+    }
+
+    .content h1 {
+      color: #00e5ff;
+      font-size: 2em;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    thead {
+      background: rgba(0, 229, 255, 0.3);
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    th {
+      font-weight: 700;
+      color: #00e5ff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    tr:hover {
+      background: rgba(0, 229, 255, 0.15);
+      transition: 0.3s;
+    }
+
+    td {
+      color: #fff;
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+  <!-- ✅ Sidebar -->
+  <div class="sidebar">
+    <div>
+      <h2>SafeCode</h2>
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="newsfeed.html">📰 News Feed</a>
+      <a href="leaderboard.html" class="active">🏆 Leaderboard</a>
+      <a href="profile.html">👤 Profile</a>
+    </div>
+    <div class="logout" onclick="logoutUser()">🚪 Logout</div>
+  </div>
+
+  <!-- ✅ Leaderboard Section -->
+  <div class="content">
+    <h1>Top Coders Leaderboard 🏆</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body">
+        <tr><td colspan="4">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

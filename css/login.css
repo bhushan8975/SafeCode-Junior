@@ -1,0 +1,76 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at top, #0f172a, #1e293b);
+  font-family: "Poppins", sans-serif;
+  color: white;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  width: 340px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.login-box h1 {
+  font-size: 1.8rem;
+  color: #38bdf8;
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.6rem 0;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+.login-box button {
+  background: #38bdf8;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: 0.3s;
+}
+
+.login-box button:hover {
+  background: #0ea5e9;
+}
+
+.bio-btn {
+  margin-top: 1.5rem;
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid #38bdf8;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  color: #38bdf8;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bio-btn:hover {
+  background: rgba(56, 189, 248, 0.3);
+}
+
+.error {
+  color: #f87171;
+  margin-top: 1rem;
+}

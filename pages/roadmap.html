@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SafeCode — Career Roadmap</title>
+  <link rel="stylesheet" href="../css/home.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>🛡️ SafeCode</h2>
+      <nav>
+        <ul>
+          <li><a href="home.html">Lessons</a></li>
+          <li><a href="challenges.html">Challenges</a></li>
+          <li><a href="leaderboard.html">Leaderboard</a></li>
+          <li><a href="news.html">News Feed</a></li>
+          <li class="active">Career Roadmap</li>
+          <li id="logout">Logout</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header>
+        <h1>🗺 Career Roadmap</h1>
+        <input id="roadmapSearch" placeholder="Search roles..." />
+      </header>
+
+      <section id="roadmapCards" style="margin-top:18px; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px;"></section>
+    </main>
+  </div>
+
+  <script type="module" src="../js/roadmap.js"></script>
+</body>
+</html>

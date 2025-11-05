@@ -1,0 +1,20 @@
+{
+  "name": "safecode-junior",
+  "version": "1.0.0",
+  "description": "SafeCode Junior Cybersecurity Learning Platform",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "Bhushan Sirsat",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^11.0.1"
+  },
+  "devDependencies": {
+    "vite": "^5.3.1"
+  }
+}

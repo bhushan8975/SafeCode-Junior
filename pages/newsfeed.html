@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News Feed | SafeCode Junior</title>
+
+  <!-- 🌟 App Logo + Favicon -->
+<link rel="icon" type="image/png" href="../assets/icons/logo.png" />
+
+<!-- 🌀 Animated Tab Title -->
+<script>
+  const titles = ["💻 SafeCode Junior", "🛡️ Secure Your Future", "🚀 Learn Cybersecurity"];
+  let i = 0;
+  setInterval(() => {
+    document.title = titles[i];
+    i = (i + 1) % titles.length;
+  }, 3000);
+</script>
+
+  <!-- ✅ Firebase Integration -->
+  <script type="module">
+    import { auth } from "../js/firebaseConfig.js";
+    import {
+      onAuthStateChanged,
+      signOut,
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    // ✅ Wait for Firebase Auth to initialize before redirecting
+    window.addEventListener("DOMContentLoaded", () => {
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          console.warn("🚫 User not logged in, redirecting...");
+          // Small delay to ensure session check completes properly
+          setTimeout(() => {
+            if (!auth.currentUser) window.location.href = "login.html";
+          }, 1000);
+        } else {
+          console.log("✅ Logged in as:", user.email);
+        }
+      });
+    });
+
+    // 🚪 Logout
+    window.logoutUser = async function () {
+      await signOut(auth);
+      window.location.href = "login.html";
+    };
+  </script>
+
+  <!-- ✅ Styling -->
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 1.5em;
+      color: #00e5ff;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
+      display: block;
+      padding: 10px 15px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: rgba(0, 229, 255, 0.3);
+      color: #00e5ff;
+    }
+
+    .logout {
+      background: rgba(255, 75, 75, 0.2);
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .logout:hover {
+      background: rgba(255, 75, 75, 0.4);
+    }
+
+    /* Content */
+    .content {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    h1 {
+      color: #00e5ff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .news-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
+    }
+
+    .news-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 40px rgba(0, 229, 255, 0.3);
+    }
+
+    .news-card h3 {
+      margin: 0 0 10px;
+      color: #00e5ff;
+    }
+
+    .news-card p {
+      margin: 0;
+      color: #ddd;
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+
+    .news-card .meta {
+      margin-top: 10px;
+      font-size: 0.8em;
+      color: #aaa;
+    }
+
+    .news-card a {
+      color: #00e5ff;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #00e5ff;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Sidebar -->
+  <div class="sidebar">
+    <div>
+      <h2>SafeCode</h2>
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="newsfeed.html" class="active">📰 News Feed</a>
+      <a href="leaderboard.html">🏆 Leaderboard</a>
+      <a href="profile.html">👤 Profile</a>
+    </div>
+    <div class="logout" onclick="logoutUser()">🚪 Logout</div>
+  </div>
+
+  <!-- ✅ Main Content -->
+  <div class="content">
+    <h1>📰 Cybersecurity News Feed</h1>
+    <p style="text-align:center; color:#ccc;">Loading latest cybersecurity updates...</p>
+  </div>
+
+  <!-- ✅ News Fetch Script -->
+  <script type="module">
+    const newsContainer = document.querySelector(".content");
+    const apiKey = "db8fe2dd341f4fd99d2ec5f25eae17c1";
+
+    async function loadNews() {
+      try {
+        const res = await fetch(
+          `https://newsapi.org/v2/everything?q=cybersecurity&language=en&sortBy=publishedAt&pageSize=6&apiKey=${apiKey}`
+        );
+        const data = await res.json();
+
+        // Remove loading text
+        newsContainer.innerHTML = `<h1>📰 Cybersecurity News Feed</h1>`;
+
+        if (!data.articles || data.articles.length === 0) {
+          const emptyMsg = document.createElement("p");
+          emptyMsg.textContent = "⚠️ No cybersecurity news found right now.";
+          emptyMsg.style.textAlign = "center";
+          newsContainer.appendChild(emptyMsg);
+          return;
+        }
+
+        data.articles.forEach((article) => {
+          const card = document.createElement("div");
+          card.className = "news-card";
+          card.innerHTML = `
+            <h3>📰 ${article.title}</h3>
+            <p>${article.description || "No description available."}</p>
+            <div class="meta">
+              Source: ${article.source.name || "Unknown"} · 
+              ${new Date(article.publishedAt).toLocaleDateString()}<br>
+              <a href="${article.url}" target="_blank">Read full article</a>
+            </div>
+          `;
+          newsContainer.appendChild(card);
+        });
+      } catch (err) {
+        console.error("Error fetching news:", err);
+        const errorMsg = document.createElement("p");
+        errorMsg.textContent = "⚠️ Unable to load latest news.";
+        errorMsg.style.textAlign = "center";
+        newsContainer.appendChild(errorMsg);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadNews);
+  </script>
+</body>
+</html>
