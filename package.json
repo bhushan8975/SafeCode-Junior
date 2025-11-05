@@ -1,20 +1,18 @@
 {
   "name": "safecode-junior",
   "version": "1.0.0",
-  "description": "SafeCode Junior Cybersecurity Learning Platform",
-  "main": "index.js",
+  "private": true,
+  "homepage": "https://bhushan8975.github.io/SafeCode-Junior",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
-  "keywords": [],
-  "author": "Bhushan Sirsat",
-  "license": "MIT",
-  "dependencies": {
-    "firebase": "^11.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "vite": "^5.3.1"
+    "vite": "^5.4.0",
+    "gh-pages": "^6.0.0"
   }
 }
