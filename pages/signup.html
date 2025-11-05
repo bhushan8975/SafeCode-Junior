@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeCode Junior - Sign Up</title>
+
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+    }
+
+    .signup-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      width: 350px;
+      text-align: center;
+    }
+
+    .signup-container h1 {
+      font-size: 26px;
+      color: #00c6ff;
+      margin-bottom: 8px;
+    }
+
+    .signup-container input {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 14px;
+    }
+
+    .signup-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .upload-btn {
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      padding: 10px 14px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    #voiceCanvas {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #00c6ff;
+      border-radius: 8px;
+      margin: 10px auto;
+      display: block;
+    }
+  </style>
+  <script type="module" crossorigin src="/SafeCode-Junior/assets/signup-D5hK1ef_.js"></script>
+  <link rel="modulepreload" crossorigin href="/SafeCode-Junior/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/SafeCode-Junior/assets/firebaseConfig-oADvoGp-.js">
+  <link rel="modulepreload" crossorigin href="/SafeCode-Junior/assets/voiceBiometric-Bu1dBzvN.js">
+</head>
+
+<body>
+  <div class="signup-container">
+    <h1>🛡️ SafeCode Junior</h1>
+    <p>Create your secure account</p>
+
+    <img id="profile-preview" class="profile-preview" src="../assets/default-avatar.png" width="90" height="90" style="border-radius:50%;margin:10px auto;display:block;object-fit:cover;" />
+
+    <input type="text" id="name" placeholder="Full Name" />
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <input type="tel" id="mobile" placeholder="Mobile Number" />
+
+    <label for="profile-pic" class="upload-btn">📸 Upload Profile Photo</label>
+    <input type="file" id="profile-pic" accept="image/*" hidden />
+
+    <button id="signup-btn">Sign Up</button>
+    <button id="back-login">Back to Login</button>
+
+    <canvas id="voiceCanvas" width="300" height="80"></canvas>
+    <button id="recordVoiceBtn" disabled>🎙️ Record Voice</button>
+    <p id="voiceStatus" style="color:#00ffcc;font-size:14px;"></p>
+  </div>
+
+  <script>
+    // preview photo
+    const input = document.getElementById("profile-pic");
+    const preview = document.getElementById("profile-preview");
+    input.addEventListener("change", e => {
+      const file = e.target.files[0];
+      if (file) preview.src = URL.createObjectURL(file);
+    });
+  </script>
+</body>
+</html>

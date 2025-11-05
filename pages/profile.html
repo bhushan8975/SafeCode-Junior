@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile | SafeCode Junior</title>
+  
+  <!-- 🌟 App Logo + Favicon -->
+<link rel="icon" type="image/png" href="/SafeCode-Junior/assets/logo-FUYUwYPf.png" />
+
+<!-- 🌀 Animated Tab Title -->
+<script>
+  const titles = ["💻 SafeCode Junior", "🛡️ Secure Your Future", "🚀 Learn Cybersecurity"];
+  let i = 0;
+  setInterval(() => {
+    document.title = titles[i];
+    i = (i + 1) % titles.length;
+  }, 3000);
+</script>
+
+  <!-- ✅ Firebase Imports & Auth Logic -->
+
+  <!-- ✅ Styling -->
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 1.5em;
+      color: #00e5ff;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
+      display: block;
+      padding: 10px 15px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: rgba(0, 229, 255, 0.3);
+      color: #00e5ff;
+    }
+
+    .logout {
+      background: rgba(255, 75, 75, 0.2);
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .logout:hover {
+      background: rgba(255, 75, 75, 0.4);
+    }
+
+    /* Profile Section */
+    .content {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      padding: 30px 40px;
+      border-radius: 20px;
+      width: 450px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .profile-card h2 {
+      color: #00e5ff;
+      margin-bottom: 20px;
+    }
+
+    .profile-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #00e5ff;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #00e5ff, #00bcd4);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00e5ff;
+    }
+
+    .back-btn {
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      margin-top: 10px;
+    }
+  </style>
+  <script type="module" crossorigin src="/SafeCode-Junior/assets/profile-CAztPneV.js"></script>
+  <link rel="modulepreload" crossorigin href="/SafeCode-Junior/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/SafeCode-Junior/assets/firebaseConfig-oADvoGp-.js">
+</head>
+
+<body>
+  <!-- ✅ Sidebar -->
+  <div class="sidebar">
+    <div>
+      <h2>SafeCode</h2>
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="newsfeed.html">📰 News Feed</a>
+      <a href="leaderboard.html">🏆 Leaderboard</a>
+      <a href="profile.html" class="active">👤 Profile</a>
+    </div>
+    <div class="logout" onclick="logoutUser()">🚪 Logout</div>
+  </div>
+
+  <!-- ✅ Profile Content -->
+  <div class="content">
+    <div class="profile-card">
+      <img id="profileImage" src="../assets/default-avatar.png" alt="Profile" class="profile-photo" />
+      <input type="file" accept="image/*" onchange="uploadPhoto(event)" style="margin-bottom: 10px;" />
+
+      <h2>My Profile</h2>
+      <input type="text" id="name" placeholder="Full Name" />
+      <input type="email" id="email" placeholder="Email" disabled />
+      <input type="text" id="mobile" placeholder="Mobile Number" />
+
+      <button onclick="saveProfile()">Save Changes</button>
+      <button class="back-btn" onclick="window.location.href='dashboard.html'">
+        Back to Dashboard
+      </button>
+    </div>
+  </div>
+</body>
+</html>

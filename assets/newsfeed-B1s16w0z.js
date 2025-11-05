@@ -1,0 +1,9 @@
+import"./modulepreload-polyfill-B5Qt9EMX.js";import{a}from"./firebaseConfig-oADvoGp-.js";import{onAuthStateChanged as i,signOut as s}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";import"https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";import"https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";import"https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";window.addEventListener("DOMContentLoaded",()=>{i(a,n=>{n?console.log("✅ Logged in as:",n.email):(console.warn("🚫 User not logged in, redirecting..."),setTimeout(()=>{a.currentUser||(window.location.href="login.html")},1e3))})});window.logoutUser=async function(){await s(a),window.location.href="login.html"};const o=document.querySelector(".content"),c="db8fe2dd341f4fd99d2ec5f25eae17c1";async function d(){try{const t=await(await fetch(`https://newsapi.org/v2/everything?q=cybersecurity&language=en&sortBy=publishedAt&pageSize=6&apiKey=${c}`)).json();if(o.innerHTML="<h1>📰 Cybersecurity News Feed</h1>",!t.articles||t.articles.length===0){const e=document.createElement("p");e.textContent="⚠️ No cybersecurity news found right now.",e.style.textAlign="center",o.appendChild(e);return}t.articles.forEach(e=>{const r=document.createElement("div");r.className="news-card",r.innerHTML=`
+            <h3>📰 ${e.title}</h3>
+            <p>${e.description||"No description available."}</p>
+            <div class="meta">
+              Source: ${e.source.name||"Unknown"} · 
+              ${new Date(e.publishedAt).toLocaleDateString()}<br>
+              <a href="${e.url}" target="_blank">Read full article</a>
+            </div>
+          `,o.appendChild(r)})}catch(n){console.error("Error fetching news:",n);const t=document.createElement("p");t.textContent="⚠️ Unable to load latest news.",t.style.textAlign="center",o.appendChild(t)}}document.addEventListener("DOMContentLoaded",d);

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Compiler | SafeCode Junior</title>
+  <script src="https://kit.fontawesome.com/a81368914c.js" crossorigin="anonymous"></script>
+
+  <!-- 🌟 App Logo + Favicon -->
+<link rel="icon" type="image/png" href="/SafeCode-Junior/assets/logo-FUYUwYPf.png" />
+
+<!-- 🌀 Animated Tab Title -->
+<script>
+  const titles = ["💻 SafeCode Junior", "🛡️ Secure Your Future", "🚀 Learn Cybersecurity"];
+  let i = 0;
+  setInterval(() => {
+    document.title = titles[i];
+    i = (i + 1) % titles.length;
+  }, 3000);
+</script>
+
+  <script type="module" crossorigin src="/SafeCode-Junior/assets/compiler-6bX5Rjy5.js"></script>
+  <link rel="modulepreload" crossorigin href="/SafeCode-Junior/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="stylesheet" crossorigin href="/SafeCode-Junior/assets/compiler-D8ngr6Z7.css">
+  <link rel="stylesheet" crossorigin href="/SafeCode-Junior/assets/Dashboard-DH5UBqwP.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar glassy">
+      <div class="brand">
+        <img src="/SafeCode-Junior/assets/logo-FUYUwYPf.png" alt="Logo" class="logo" />
+        <h2>SafeCode Junior</h2>
+      </div>
+      <nav class="nav-menu">
+        <a href="Dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="videos.html"><i class="fas fa-video"></i> Video Lectures</a>
+        <a href="compiler.html" class="active"><i class="fas fa-code"></i> Code Compiler</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+        <a href="login.html" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h1>💻 Online Code Compiler</h1>
+      </header>
+
+      <section class="compiler-section">
+        <div class="compiler-controls glassy">
+          <label for="language">Select Language:</label>
+          <select id="language">
+            <option value="python">Python</option>
+            <option value="cpp">C++</option>
+            <option value="c">C</option>
+            <option value="java">Java</option>
+            <option value="javascript">JavaScript</option>
+          </select>
+          <button id="run-btn">▶ Run</button>
+        </div>
+
+        <div class="editor-container glassy">
+          <textarea id="code-editor" spellcheck="false"># Write your code here...</textarea>
+        </div>
+
+        <div class="output-container glassy">
+          <h3>Output:</h3>
+          <pre id="output">-- Your output will appear here --</pre>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
